@@ -1,6 +1,6 @@
 <template>
 
-    <h1>Tutorial List</h1>
+    <h1>Album List</h1>
     <h4>{{ message }}</h4>
   
       <v-row >
@@ -63,7 +63,7 @@ export default {
       currentTutorial: null,
       currentIndex: -1,
       title: "",
-      message : "Search, Edit or Delete Tutorials"
+      message : "Search, Edit or Delete Albums"
     };
   },
   components: {

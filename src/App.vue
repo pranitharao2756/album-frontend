@@ -1,3 +1,4 @@
+
 <template>
     <v-app>
       <v-app-bar  >
@@ -8,7 +9,7 @@
                 max-width="40"
                 contain
             ></v-img>
-            <v-app-bar-title  >Tutorial</v-app-bar-title>
+            <v-app-bar-title  >Album</v-app-bar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn 
@@ -17,13 +18,25 @@
                     >
                   List
                 </v-btn>
+               
+        
+               
                 <v-btn 
                     variant="text"
                     @click="goAdd"
                     >
-                  Add
+                  Add Album
                 </v-btn>
-            </v-toolbar-items>
+                <v-btn 
+                    variant="text"
+                    @click="goAddArtist"
+                    >
+                  Add Artist
+                </v-btn>
+                
+                
+          
+    </v-toolbar-items>
       </v-app-bar>
       <v-main >
         <v-container>
@@ -34,20 +47,26 @@
 </template>
 
 <script>
+
 import logo from './assets/oc-logo-white.png'
 export default {
+
+
   name: 'App',
 
   data: () => ({
     logo,
+    
   }),
   methods: {
     goAdd() {
+      
       this.$router.push({ name: 'add' });
     },
-    goList() {
-      this.$router.push({ name: 'tutorials' });
-    }
+    goAddArtist() {
+      this.$router.push({ name: 'addLesson' });
+    },
+    
   },
 
 }
