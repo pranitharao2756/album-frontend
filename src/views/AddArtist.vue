@@ -1,10 +1,10 @@
 <template>
     <h1>Add Artist</h1>
     <h4>{{ message }}</h4>
-    <h4>Artist : {{tutorialId}}</h4>
+    <h4>Album : {{tutorialId}}</h4>
     <v-form>
        <v-text-field
-            label="Title"
+            label="Track Name"
             v-model="lesson.title"
         />
         <v-text-field
@@ -14,7 +14,7 @@
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveLesson()"
+                <v-btn color="success" @click="saveTrack()"
                     >Save</v-btn
                 >
             </v-col>
@@ -29,7 +29,7 @@
 import LessonDataService from "../services/LessonDataService";
 export default {
   name: "add-lesson",
-  props: ['tutorialId'],
+  props: {tutorialId : String,lessonId:String},
   data() {
     return {
       lesson: {
@@ -42,7 +42,7 @@ export default {
     };
   },
   methods: {
-    saveLesson() {
+    saveTrack() {
       var data = {
         title: this.lesson.title,
         description: this.lesson.description,
