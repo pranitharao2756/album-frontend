@@ -24,16 +24,16 @@ const routes =  [
     props: true
   },
   {
-    path: "/addLesson",
-    name: "addLesson",
-    component: () => import("./views/AddLesson.vue"),
+    path: "/addTrack",
+    name: "addTrack",
+    component: () => import("./views/AddTrack.vue"),
     props: true
   },
   {
-    path: "/addTrack",
-    alias: "/addTrack",
-    name: "addTrack",
-    component: () => import("./views/AddTrack.vue")
+    path: "/addArtist",
+    alias: "/addArtist",
+    name: "addArtist",
+    component: () => import("./views/AddArtist.vue")
   },
   {
     path: "/editLesson",

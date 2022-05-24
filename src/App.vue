@@ -29,9 +29,9 @@
                 </v-btn>
                 <v-btn 
                     variant="text"
-                    @click="goAddArtist"
+                    @click="goAddTrack"
                     >
-                  Add Artist
+                  Add Track
                 </v-btn>
                 
                 
@@ -63,8 +63,8 @@ export default {
       
       this.$router.push({ name: 'add' });
     },
-    goAddArtist() {
-      this.$router.push({ name: 'addLesson' });
+    goAddTrack() {
+      this.$router.push({ name: 'addTrack' });
     },
     
   },
