@@ -15,12 +15,12 @@ const routes =  [
   {
     path: "/add",
     name: "add",
-    component: () => import("./views/AddTutorial.vue")
+    component: () => import("./views/AddAlbum.vue")
   },
   {
     path: "/view",
     name: "view",
-    component: () => import("./views/ViewTutorial.vue"),
+    component: () => import("./views/ViewAlbum.vue"),
     props: true
   },
   {
