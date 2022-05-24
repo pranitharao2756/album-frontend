@@ -30,6 +30,12 @@ const routes =  [
     props: true
   },
   {
+    path: "/addTrack",
+    alias: "/addTrack",
+    name: "addTrack",
+    component: () => import("./views/AddTrack.vue")
+  },
+  {
     path: "/editLesson",
     name: "editLesson",
     component: () => import("./views/EditLesson.vue"),
