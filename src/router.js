@@ -2,8 +2,8 @@ import { createWebHistory, createRouter } from "vue-router";
 const routes =  [
   {
     path: "/",
-    alias: "/tutorials",
-    name: "tutorials",
+    alias: "/albums",
+    name: "albums",
     component: () => import("./views/TutorialsList.vue")
   },
   {
