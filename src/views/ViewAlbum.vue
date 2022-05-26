@@ -88,7 +88,7 @@ export default {
         });
     },
     cancel(){
-        this.$router.push({ name: 'tutorials' });
+        this.$router.push({ name: 'albums' });
     }
   },
     mounted() {
