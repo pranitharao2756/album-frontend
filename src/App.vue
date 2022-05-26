@@ -1,4 +1,3 @@
-
 <template>
     <v-app>
       <v-app-bar  >
@@ -18,9 +17,6 @@
                     >
                   List
                 </v-btn>
-               
-        
-               
                 <v-btn 
                     variant="text"
                     @click="goAdd"
