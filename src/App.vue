@@ -23,15 +23,6 @@
                     >
                   Add Album
                 </v-btn>
-                <v-btn 
-                    variant="text"
-                    @click="goAddTrack"
-                    >
-                  Add Track
-                </v-btn>
-                
-                
-          
     </v-toolbar-items>
       </v-app-bar>
       <v-main >
@@ -55,13 +46,16 @@ export default {
     
   }),
   methods: {
+    goList() {
+      
+      this.$router.push({ name: 'albums' });
+    },
+
     goAdd() {
       
       this.$router.push({ name: 'add' });
     },
-    goAddTrack() {
-      this.$router.push({ name: 'addTrack' });
-    },
+   
     
   },
 

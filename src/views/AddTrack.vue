@@ -1,7 +1,7 @@
 <template>
     <h1>Add Track</h1>
     <h4>{{ message }}</h4>
-    <h4>Track : {{tutorialId}}</h4>
+    <h4>Album : {{$route.params.id}}</h4>
     <v-form>
        <v-text-field
             label="Track Name"

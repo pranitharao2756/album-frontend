@@ -24,13 +24,13 @@ const routes =  [
     props: true
   },
   {
-    path: "/addTrack",
+    path: "/addTrack/:id",
     name: "addTrack",
     component: () => import("./views/AddTrack.vue"),
     props: true
   },
   {
-    path: "/addArtist",
+    path: "/addArtist/:id",
     alias: "/addArtist",
     name: "addArtist",
     component: () => import("./views/AddArtist.vue")
