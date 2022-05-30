@@ -74,7 +74,7 @@ export default {
       this.$router.push({ name: 'edit', params: { id: tutorial.id } });
     },
     goView(tutorial) {
-      this.$router.push({ name: 'view', params: { id: tutorial.id } });
+      this.$router.push({ name: 'viewargs', params: { id: tutorial.id } });
     },
     goDelete(tutorial) {
       TutorialDataService.delete(tutorial.id)
