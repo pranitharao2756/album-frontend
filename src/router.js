@@ -24,6 +24,12 @@ const routes =  [
     props: true
   },
   {
+    path: "/view/:id",
+    name: "viewargs",
+    component: () => import("./views/ViewAlbum.vue"),
+    props: true
+  },
+  {
     path: "/addTrack/:id",
     name: "addTrack",
     component: () => import("./views/AddTrack.vue"),

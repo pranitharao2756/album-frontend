@@ -6,7 +6,7 @@
   </v-col>
   <v-col  cols="8"
         sm="4">
-      <span> {{ lesson.description }}</span>
+      <span> {{ lesson.category }}</span>
   </v-col>
   <v-col  cols="8"
         sm="1">
