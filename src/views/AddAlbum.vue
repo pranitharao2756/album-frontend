@@ -3,12 +3,12 @@
     <h4>{{ message }}</h4>
     <v-form>
        <v-text-field
-            label="Title"
-            v-model="tutorial.title"
+            label="Album Title"
+            v-model="album.title"
         />
         <v-text-field
-            label="Description"
-            v-model="tutorial.description"
+            label="Album Category"
+            v-model="album.description"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
@@ -30,7 +30,7 @@ export default {
   name: "add-tutorial",
   data() {
     return {
-      tutorial: {
+      album: {
         id: null,
         title: "",
         description: "",
@@ -42,21 +42,21 @@ export default {
   methods: {
     saveTutorial() {
       var data = {
-        title: this.tutorial.title,
-        description: this.tutorial.description
+        title: this.album.title,
+        description: this.album.description
       };
       TutorialDataService.create(data)
         .then(response => {
-          this.tutorial.id = response.data.id;
+          this.album.id = response.data.id;
           console.log("add "+response.data);
-          this.$router.push({ name: 'tutorials' });
+          this.$router.push({ name: 'albums' });
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'tutorials' });
+        this.$router.push({ name: 'albums' });
     }
   }
 }
