@@ -10,10 +10,7 @@
             label="Description"
             v-model="tutorial.description"
         />
-        <v-text-field
-            label="Description"
-            v-model="tutorial.published"
-        />
+        
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
@@ -21,6 +18,9 @@
                     >Save</v-btn
                 >
             </v-col>
+
+            
+
             <v-col col="2">
                 <v-btn color="info" @click="cancel()">Cancel</v-btn>
             </v-col>
@@ -61,15 +61,17 @@ export default {
         .then(response => {
           this.tutorial.id = response.data.id;
           console.log("add "+response.data);
-          this.$router.push({ name: 'tutorials' });
+          this.$router.push({ name: 'albums' });
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'tutorials' });
+        
+        this.$router.push({ name: 'albums' });
     }
+    
   },
     mounted() {
     this.retrieveTutorial();

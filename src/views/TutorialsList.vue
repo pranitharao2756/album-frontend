@@ -1,6 +1,6 @@
 <template>
 
-    <h1>Tutorial List</h1>
+    <h1>Album List</h1>
     <h4>{{ message }}</h4>
   
       <v-row >
@@ -63,7 +63,7 @@ export default {
       currentTutorial: null,
       currentIndex: -1,
       title: "",
-      message : "Search, Edit or Delete Tutorials"
+      message : "Search, Edit or Delete Albums"
     };
   },
   components: {
@@ -74,7 +74,7 @@ export default {
       this.$router.push({ name: 'edit', params: { id: tutorial.id } });
     },
     goView(tutorial) {
-      this.$router.push({ name: 'view', params: { id: tutorial.id } });
+      this.$router.push({ name: 'viewargs', params: { id: tutorial.id } });
     },
     goDelete(tutorial) {
       TutorialDataService.delete(tutorial.id)

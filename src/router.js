@@ -2,8 +2,8 @@ import { createWebHistory, createRouter } from "vue-router";
 const routes =  [
   {
     path: "/",
-    alias: "/tutorials",
-    name: "tutorials",
+    alias: "/albums",
+    name: "albums",
     component: () => import("./views/TutorialsList.vue")
   },
   {
@@ -15,19 +15,31 @@ const routes =  [
   {
     path: "/add",
     name: "add",
-    component: () => import("./views/AddTutorial.vue")
+    component: () => import("./views/AddAlbum.vue")
   },
   {
     path: "/view",
     name: "view",
-    component: () => import("./views/ViewTutorial.vue"),
+    component: () => import("./views/ViewAlbum.vue"),
     props: true
   },
   {
-    path: "/addLesson",
-    name: "addLesson",
-    component: () => import("./views/AddLesson.vue"),
+    path: "/view/:id",
+    name: "viewargs",
+    component: () => import("./views/ViewAlbum.vue"),
     props: true
+  },
+  {
+    path: "/addTrack/:id",
+    name: "addTrack",
+    component: () => import("./views/AddTrack.vue"),
+    props: true
+  },
+  {
+    path: "/addArtist/:id",
+    alias: "/addArtist",
+    name: "addArtist",
+    component: () => import("./views/AddArtist.vue")
   },
   {
     path: "/editLesson",
