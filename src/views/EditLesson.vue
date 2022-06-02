@@ -1,5 +1,5 @@
 <template>
-    <h1>Edit Artist</h1>
+    <h1>Edit Track</h1>
     <h4>{{ message }}</h4>
     <h4>Tutorial : {{tutorialId}} Lesson : {{lessonId}}</h4>
 
@@ -9,8 +9,8 @@
             v-model="lesson.title"
         />
         <v-text-field
-            label="Description"
-            v-model="lesson.description"
+            label="category"
+            v-model="lesson.category"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
@@ -49,16 +49,18 @@ export default {
 
     },
     saveLesson() {
+      
       var data = {
         title: this.lesson.title,
-        description: this.lesson.description,
-        tutorialId : this.lesson.tutorialId
+        category: this.lesson.category,
+        albumId : this.lesson.albumId
       };
-      LessonDataService.updateLesson(this.lesson.tutorialId,this.lesson.id, data)
+      console.log(data);
+      LessonDataService.updateLesson(this.lesson.albumId,this.lesson.id, data)
         .then(response => {
           this.lesson.id = response.data.id;
         
-         this.$router.push({ name: 'view' , params: { id: this.lesson.tutorialId }} );
+          this.$router.push({ name: 'view' , params: { id: this.lesson.albumId }} );
         })
         .catch(e => {
           this.message = e.response.data.message;

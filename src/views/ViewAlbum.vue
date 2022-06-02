@@ -79,7 +79,7 @@ export default {
     },
 
     goDeleteLesson(lesson) {
-      LessonDataService.deleteLesson(lesson.tutorialId,lesson.id)
+      LessonDataService.deleteLesson(lesson.albumId,lesson.id)
         .then( () => {
           this.retrieveLessons()
         })
