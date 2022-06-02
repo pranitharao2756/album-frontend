@@ -13,7 +13,10 @@ class LessonDataService {
     return http.put(`/albums/${tutorialId}/tracks/${id}`, data);
   }
   deleteLesson(tutorialId,id) {
-    return http.delete(`/tutorials/${tutorialId}/lessons/${id}`);
+    return http.delete(`/albums/${tutorialId}/tracks/${id}`);
+  }
+  deleteAll(tutorialId){
+    return http.delete(`/albums/${tutorialId}/tracks`);
   }
 
 }
