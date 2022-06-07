@@ -20,6 +20,10 @@
       <v-row>
         <v-col  cols="9"
               sm="2">
+              <span class="text-h6">Album</span>
+        </v-col>
+        <v-col  cols="9"
+              sm="2">
             <span class="text-h6">Title</span>
         </v-col>
         <v-col  cols="9"
