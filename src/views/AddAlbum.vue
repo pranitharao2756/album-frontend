@@ -1,7 +1,7 @@
 <template>
     <h1>Add Album</h1>
     <h4>{{ message }}</h4>
-    <v-form>
+    <v-form encType = "multipart/form-data">
        <v-text-field
             label="Album Title"
             v-model="album.title"
@@ -10,6 +10,8 @@
             label="Album Category"
             v-model="album.description"
         />
+        <button class="btn btn-info" @click="onPickFile">Upload album image</button>
+        <input type="file" style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked"/>
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
@@ -36,16 +38,32 @@ export default {
         description: "",
         published: false
       },
-      message: "Enter data and click save"
+      message: "Enter data and click save",
+      selectedFile: ""
     };
   },
   methods: {
+    onPickFile () {
+  this.$refs.fileInput.click()
+},
+onFilePicked (event) {
+  const files = event.target.files
+  let filename = files[0].name
+  const fileReader = new FileReader()
+  fileReader.addEventListener('load', () => {
+    this.imageUrl = fileReader.result
+  })
+  fileReader.readAsDataURL(files[0])
+  this.selectedFile = files[0]
+  console.log(this.image);
+},
     saveTutorial() {
-      var data = {
-        title: this.album.title,
-        description: this.album.description
-      };
-      TutorialDataService.create(data)
+      let formData = new FormData();
+      formData.append("image", this.selectedFile);
+      formData.append("title",this.album.title);
+      formData.append("description",this.album.description);
+      
+      TutorialDataService.create(formData)
         .then(response => {
           this.album.id = response.data.id;
           console.log("add "+response.data);

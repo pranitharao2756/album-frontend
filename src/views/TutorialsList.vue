@@ -20,6 +20,10 @@
       <v-row>
         <v-col  cols="9"
               sm="2">
+              <span class="text-h6">Album</span>
+        </v-col>
+        <v-col  cols="9"
+              sm="2">
             <span class="text-h6">Title</span>
         </v-col>
         <v-col  cols="9"
@@ -55,6 +59,7 @@
 <script>
 import TutorialDataService from "../services/TutorialDataService";
 import TutorialDisplay from '@/components/TutorialDisplay.vue';
+import LessonDataService from "../services/LessonDataService";
 export default {
   name: "tutorials-list",
   data() {
@@ -77,6 +82,11 @@ export default {
       this.$router.push({ name: 'viewargs', params: { id: tutorial.id } });
     },
     goDelete(tutorial) {
+      LessonDataService.deleteAll(tutorial.id)
+      .then( () => {})
+      .catch(e => {
+        this.message = e.response.data.message;
+      })
       TutorialDataService.delete(tutorial.id)
         .then( () => {
     

@@ -2,6 +2,11 @@
 <v-row>
   <v-col  cols="9"
         sm="2">
+      <v-img max-height="100"
+              max-width="100" :src=source></v-img>
+  </v-col>
+  <v-col  cols="9"
+        sm="2">
       <span >{{ tutorial.title }}</span>
   </v-col>
   <v-col  cols="9"
@@ -30,7 +35,7 @@ export default {
   },
   data() {
     return {
-      
+      source:this.tutorial.image.substring(17)
     };
   },
   methods: {
