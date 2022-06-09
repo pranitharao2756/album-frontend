@@ -55,7 +55,7 @@ onFilePicked (event) {
   })
   fileReader.readAsDataURL(files[0])
   this.selectedFile = files[0]
-  console.log(this.image);
+  
 },
     saveTutorial() {
       let formData = new FormData();

@@ -1,11 +1,16 @@
 <template>
-    <h2>Album View</h2>
-    <h4>{{ message }}</h4>
-    <h3> {{tutorial.title}}</h3>
+    <h2>Album : <span> {{tutorial.title}}</span> </h2>
+    <h4>{{ message }}</h4><br>
+    
     <v-btn color="success" @click="goEditTutorial()"
-    >Edit</v-btn>
+    >Edit</v-btn>&nbsp;
      <v-btn color="success" @click="goAddTrack(id)"
-    >Add Track</v-btn>
+    >Add Track</v-btn>&nbsp;
+
+    <h3 v-if="artist"> Artist : {{artistname}}</h3>
+    <v-btn v-else color="success" @click="goAddArtist()"
+    >Add Artist</v-btn>
+    <br>
 
      <v-row>
         <v-col  cols="8"
@@ -39,6 +44,7 @@
 import TutorialDataService from "../services/TutorialDataService";
 import LessonDataService from "../services/LessonDataService";
 import LessonDisplay from '@/components/LessonDisplay.vue';
+import ArtistDataService from "../services/ArtistDataService";
 export default {
   name: "view-tutorial",
   props: ['id'],
@@ -49,7 +55,9 @@ export default {
     return {
       tutorial: {},
       lessons : [],
-      message: "Add, Edit or Delete Tracks"
+      message: "Add, Edit or Delete Tracks",
+      artist:false,
+      artistname:""
     };
   },
   methods: {
@@ -57,6 +65,18 @@ export default {
       TutorialDataService.get(this.id)
         .then(response => {
           this.tutorial= response.data;
+          if(!!this.tutorial.artistId)
+          {
+            this.artist = true;
+          
+          ArtistDataService.getArtist(this.tutorial.artistId)
+          .then(response=>{
+            this.artistname = response.data.name;
+          })
+          .catch(e => {
+                this.message = e.response.data.message;
+              });
+          }
           LessonDataService.getAllLessons(this.id)
             .then(response=> {
               this.lessons = response.data})
@@ -76,6 +96,9 @@ export default {
     },
     goAddTrack() {
       this.$router.push({ name: 'addTrack', params: { tutorialId: this.id } });
+    },
+    goAddArtist(){
+      this.$router.push({ name: 'addArtist', params: { tutorialId: this.id } });
     },
 
     goDeleteLesson(lesson) {
