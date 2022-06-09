@@ -1,11 +1,11 @@
 <template>
-    <h2>Tutorial View</h2>
+    <h2>Album View</h2>
     <h4>{{ message }}</h4>
     <h3> {{tutorial.title}}</h3>
     <v-btn color="success" @click="goEditTutorial()"
     >Edit</v-btn>
-     <v-btn color="success" @click="goAddLesson(id)"
-    >Add Lesson</v-btn>
+     <v-btn color="success" @click="goAddTrack(id)"
+    >Add Track</v-btn>
 
      <v-row>
         <v-col  cols="8"
@@ -49,7 +49,7 @@ export default {
     return {
       tutorial: {},
       lessons : [],
-      message: "Add, Edit or Delete Lessons"
+      message: "Add, Edit or Delete Tracks"
     };
   },
   methods: {
@@ -74,12 +74,12 @@ export default {
     goEditLesson(lesson) {
       this.$router.push({ name: 'editLesson', params: { tutorialId: this.id,lessonId: lesson.id} });
     },
-    goAddLesson() {
-      this.$router.push({ name: 'addLesson', params: { tutorialId: this.id } });
+    goAddTrack() {
+      this.$router.push({ name: 'addTrack', params: { tutorialId: this.id } });
     },
 
     goDeleteLesson(lesson) {
-      LessonDataService.deleteLesson(lesson.tutorialId,lesson.id)
+      LessonDataService.deleteLesson(lesson.albumId,lesson.id)
         .then( () => {
           this.retrieveLessons()
         })
@@ -88,7 +88,7 @@ export default {
         });
     },
     cancel(){
-        this.$router.push({ name: 'tutorials' });
+        this.$router.push({ name: 'albums' });
     }
   },
     mounted() {

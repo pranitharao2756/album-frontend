@@ -1,20 +1,24 @@
 <template>
-    <h1>Add Artist</h1>
+    <h1>Add Track</h1>
     <h4>{{ message }}</h4>
-    <h4>Artist : {{tutorialId}}</h4>
+    <h4>Album : {{this.tutorialId}}</h4>
     <v-form>
        <v-text-field
-            label="Title"
-            v-model="lesson.title"
+            label="Track Name"
+            v-model="track.title"
         />
         <v-text-field
-            label="Description"
-            v-model="lesson.description"
+            label="Track Category"
+            v-model="track.category"
+        />
+        <v-text-field
+            label="Artist"
+            v-model="track.artist"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveLesson()"
+                <v-btn color="success" @click="saveTrack($route.params.id)"
                     >Save</v-btn
                 >
             </v-col>
@@ -32,27 +36,29 @@ export default {
   props: ['tutorialId'],
   data() {
     return {
-      lesson: {
+      track: {
         id: null,
         title: "",
-        description: "",
+        category: "",
+        artist:"",
         published: false
       },
       message: "Enter data and click save"
     };
   },
   methods: {
-    saveLesson() {
+    saveTrack(albumid) {
       var data = {
-        title: this.lesson.title,
-        description: this.lesson.description,
-        tutorialId : this.tutorialId
+        title: this.track.title,
+        category: this.track.category,
+        albumId: albumid,
+        artist : this.track.artist
       };
-      LessonDataService.createLesson(this.tutorialId, data)
+      LessonDataService.createLesson(albumid, data)
         .then(response => {
-          this.lesson.id = response.data.id;
+          this.track.id = response.data.id;
         
-          this.$router.push({ name: 'view' , params: { id: this.tutorialId }} );
+          this.$router.push({ name: 'view' , params: { id: albumid }} );
         })
         .catch(e => {
           this.message = e.response.data.message;
