@@ -2,9 +2,9 @@ import { createWebHistory, createRouter } from "vue-router";
 const routes =  [
   {
     path: "/",
-    alias: "/albums",
-    name: "albums",
-    component: () => import("./views/TutorialsList.vue")
+    alias: "/artists",
+    name: "artists",
+    component: () => import("./views/ArtistList.vue")
   },
   {
     path: "/edit/:id",
@@ -20,6 +20,12 @@ const routes =  [
   {
     path: "/view",
     name: "view",
+    component: () => import("./views/ViewArtist.vue"),
+    props: true
+  },
+  {
+    path: "/viewalbum/:id",
+    name: "viewalbum",
     component: () => import("./views/ViewAlbum.vue"),
     props: true
   },
@@ -36,15 +42,15 @@ const routes =  [
     props: true
   },
   {
-    path: "/addArtist/:id",
+    path: "/addArtist",
     alias: "/addArtist",
     name: "addArtist",
     component: () => import("./views/AddArtist.vue")
   },
   {
-    path: "/editLesson",
-    name: "editLesson",
-    component: () => import("./views/EditLesson.vue"),
+    path: "/editTrack/:albumid/:trackid",
+    name: "editTrack",
+    component: () => import("./views/EditTrack.vue"),
     props: true
   }
 ];

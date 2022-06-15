@@ -6,19 +6,17 @@
             label="Artist name"
             v-model="artist.name"
         />
-        <button class="btn btn-info" @click="onPickFile">Upload artist image</button>
-        <input type="file" style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked"/>
-        
-        
+        <button class="btn btn-info" @click="onPickFile">Upload artist image</button>&nbsp;
+        <input type="file"  ref="fileInput" accept="image/*" @change="onFilePicked"/>
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="addArtist($route.params.id)"
+               <br> <v-btn color="success" @click="addArtist()"
                     >Add artist</v-btn
                 >
             </v-col>
             <v-col col="2">
-                <v-btn color="info" @click="cancel()">Cancel</v-btn>
+                <br><v-btn color="info" @click="cancel()">Cancel</v-btn>
             </v-col>
             <v-col col="2"> </v-col>
         </v-row>
@@ -26,10 +24,9 @@
 </template>
 <script>
 import ArtistDataService from "../services/ArtistDataService";
-import TutorialDataService from "../services/TutorialDataService";
 export default {
   name: "add-artist",
-  props: {tutorialId : String},
+  props: {artistId : String},
   data() {
     return {
       artist: {
@@ -54,7 +51,7 @@ onFilePicked (event) {
   fileReader.readAsDataURL(files[0])
   this.selectedFile = files[0]
 },
-    addArtist(albumid) {
+    addArtist() {
       let formData = new FormData();
       formData.append("artistimage", this.selectedFile);
       formData.append("name",this.artist.name);
@@ -63,25 +60,15 @@ onFilePicked (event) {
         .then(response => {
           this.artist.id = response.data.id;
           console.log(this.artist.id)
-           var data = {
-        artistId: this.artist.id
-      };
-      TutorialDataService.update(albumid,data)
-        .then(response => {
-          
-          console.log("add "+response.data);
-          this.$router.push({ name: 'albums' });
-        })
-        })
+          this.$router.push({ name: 'artists' })
+           })
         .catch(e => {
           this.message = e.response.data.message;
         });
-       
-
+      ;
     },
     cancel(){
-        
-        this.$router.push({ name: 'albums' });
+        this.$router.push({ name: 'artists' });
     }
     
   }

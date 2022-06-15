@@ -12,6 +12,12 @@
               sm="4">
             <span class="text-h6">Description</span>
         </v-col>
+
+        <v-col  cols="8"
+        sm="4">
+            <span class="text-h6">Length</span>
+        </v-col>
+
         <v-col  cols="8"
               sm="1">
             <span class="text-h6">Edit</span>
@@ -21,12 +27,12 @@
             <span class="text-h6">Delete</span>
         </v-col>
       </v-row>
-      <LessonDisplay
-        v-for="lesson in lessons"
+      <TrackDisplay
+        v-for="track in tracks"
         :key="lesson.id"
-        :lesson="lesson"
-        @deleteLesson="goDeleteLesson(lesson)"
-        @updateLesson="goEditLesson(lesson)"
+        :track="track"
+        @deleteTrack="goDeleteTrack(track)"
+        @updateTrack="goEditTrack(track)"
     />
      <v-btn color="success" @click="goEditAlbum()"
     >Edit</v-btn>&nbsp;
@@ -39,45 +45,33 @@
    
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import AlbumDataService from "../services/AlbumDataService";
 import TrackDataService from "../services/TrackDataService";
-import LessonDisplay from '@/components/LessonDisplay.vue';
+import TrackDisplay from '@/components/TrackDisplay.vue';
 import ArtistDataService from "../services/ArtistDataService";
 export default {
   name: "view-album",
   props: ['id'],
     components: {
-        LessonDisplay
+        TrackDisplay
     },
   data() {
     return {
-      tutorial: {},
-      lessons : [],
+      album: {},
+      tracks : [],
       message: "Add, Edit or Delete Tracks",
-      artist:false,
-      artistname:""
+      artistid:null
     };
   },
   methods: {
     retrieveTracks() {
-      TutorialDataService.get(this.id)
+      AlbumDataService.get(this.id)
         .then(response => {
-          this.tutorial= response.data;
-          if(!!this.tutorial.artistId)
-          {
-            this.artist = true;
-          
-          ArtistDataService.getArtist(this.tutorial.artistId)
-          .then(response=>{
-            this.artistname = response.data.name;
-          })
-          .catch(e => {
-                this.message = e.response.data.message;
-              });
-          }
+          this.album= response.data;
+          this.artistid = this.album.artistId;
           TrackDataService.getAllTracks(this.id)
             .then(response=> {
-              this.lessons = response.data})
+              this.tracks = response.data})
             .catch(e => {
                 this.message = e.response.data.message;
               });
@@ -86,17 +80,14 @@ export default {
           this.message = e.response.data.message;
         });
     },
-     goEditTutorial() {
+     goEditAlbum() {
       this.$router.push({ name: 'edit', params: { id: this.id } });
     },
-    goEditLesson(lesson) {
-      this.$router.push({ name: 'editLesson', params: { tutorialId: this.id,lessonId: lesson.id} });
+    goEditTrack(track) {
+      this.$router.push({ name: 'editTrack', params: { albumid: this.id,trackid: track.id} });
     },
     goAddTrack() {
-      this.$router.push({ name: 'addTrack', params: { tutorialId: this.id } });
-    },
-    goAddArtist(){
-      this.$router.push({ name: 'addArtist', params: { tutorialId: this.id } });
+      this.$router.push({ name: 'addTrack', params: { albumid: this.id } });
     },
 
     goDeleteTrack(track) {
