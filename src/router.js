@@ -9,11 +9,11 @@ const routes =  [
   {
     path: "/edit/:id",
     name: "edit",
-    component: () => import("./views/EditTutorial.vue"),
+    component: () => import("./views/EditArtist.vue"),
     props: true
   },
   {
-    path: "/add",
+    path: "/add/:id",
     name: "add",
     component: () => import("./views/AddAlbum.vue")
   },
@@ -32,9 +32,10 @@ const routes =  [
   {
     path: "/view/:id",
     name: "viewargs",
-    component: () => import("./views/ViewAlbum.vue"),
+    component: () => import("./views/ViewArtist.vue"),
     props: true
   },
+
   {
     path: "/addTrack/:id",
     name: "addTrack",
