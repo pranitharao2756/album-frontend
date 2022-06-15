@@ -1,16 +1,7 @@
 <template>
-    <h2>Album : <span> {{tutorial.title}}</span> </h2>
-    <h4>{{ message }}</h4><br>
+    <h4>{{ message }}</h4>
+    <h3> Album: {{album.title}}</h3><br> 
     
-    <v-btn color="success" @click="goEditTutorial()"
-    >Edit</v-btn>&nbsp;
-     <v-btn color="success" @click="goAddTrack(id)"
-    >Add Track</v-btn>&nbsp;
-
-    <h3 v-if="artist"> Artist : {{artistname}}</h3>
-    <v-btn v-else color="success" @click="goAddArtist()"
-    >Add Artist</v-btn>
-    <br>
 
      <v-row>
         <v-col  cols="8"
@@ -37,16 +28,23 @@
         @deleteLesson="goDeleteLesson(lesson)"
         @updateLesson="goEditLesson(lesson)"
     />
+     <v-btn color="success" @click="goEditAlbum()"
+    >Edit</v-btn>&nbsp;
+     <v-btn color="success" @click="goAddTrack(id)"
+    >Add Track</v-btn>&nbsp;
+    <v-btn color="success" @click="goAlbum()"
+    >Back</v-btn>
+
 
    
 </template>
 <script>
 import TutorialDataService from "../services/TutorialDataService";
-import LessonDataService from "../services/LessonDataService";
+import TrackDataService from "../services/TrackDataService";
 import LessonDisplay from '@/components/LessonDisplay.vue';
 import ArtistDataService from "../services/ArtistDataService";
 export default {
-  name: "view-tutorial",
+  name: "view-album",
   props: ['id'],
     components: {
         LessonDisplay
@@ -61,7 +59,7 @@ export default {
     };
   },
   methods: {
-    retrieveLessons() {
+    retrieveTracks() {
       TutorialDataService.get(this.id)
         .then(response => {
           this.tutorial= response.data;
@@ -77,7 +75,7 @@ export default {
                 this.message = e.response.data.message;
               });
           }
-          LessonDataService.getAllLessons(this.id)
+          TrackDataService.getAllTracks(this.id)
             .then(response=> {
               this.lessons = response.data})
             .catch(e => {
@@ -101,21 +99,19 @@ export default {
       this.$router.push({ name: 'addArtist', params: { tutorialId: this.id } });
     },
 
-    goDeleteLesson(lesson) {
-      LessonDataService.deleteLesson(lesson.albumId,lesson.id)
+    goDeleteTrack(track) {
+      TrackDataService.deleteTrack(track.albumId,track.id)
         .then( () => {
-          this.retrieveLessons()
+          this.retrieveTracks()
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
-    },
-    cancel(){
-        this.$router.push({ name: 'albums' });
     }
+ 
   },
     mounted() {
-    this.retrieveLessons();
+    this.retrieveTracks();
   }
 }
 </script>
