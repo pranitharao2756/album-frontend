@@ -36,10 +36,10 @@ export default {
   methods: {
 
     deleteTrack() {
-      this.$emit("deleteLesson");
+      this.$emit("deleteTrack");
     },
     updateTrack() {
-      this.$emit("updateLesson");
+      this.$emit("updateTrack");
     }
   }
 };
