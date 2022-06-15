@@ -21,7 +21,7 @@
                     variant="text"
                     @click="goAdd"
                     >
-                  Add Album
+                  Add Artist
                 </v-btn>
     </v-toolbar-items>
       </v-app-bar>
@@ -43,20 +43,14 @@ export default {
 
   data: () => ({
     logo,
-    
   }),
   methods: {
     goList() {
-      
-      this.$router.push({ name: 'albums' });
+      this.$router.push({ name: 'artists' });
     },
-
     goAdd() {
-      
-      this.$router.push({ name: 'add' });
+      this.$router.push({ name: 'addArtist' });
     },
-   
-    
   },
 
 }
