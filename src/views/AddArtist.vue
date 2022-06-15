@@ -1,21 +1,20 @@
 <template>
     <h1>Add Artist</h1>
     <h4>{{ message }}</h4>
-    <h4>Album : {{$route.params.id }}</h4>
     <v-form>
        <v-text-field
-            label="Track Name"
-            v-model="lesson.title"
+            label="Artist name"
+            v-model="artist.name"
         />
-        <v-text-field
-            label="Description"
-            v-model="lesson.description"
-        />
+        <button class="btn btn-info" @click="onPickFile">Upload artist image</button>
+        <input type="file" style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked"/>
+        
+        
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveTrack()"
-                    >Save</v-btn
+                <v-btn color="success" @click="addArtist($route.params.id)"
+                    >Add artist</v-btn
                 >
             </v-col>
             <v-col col="2">
@@ -26,42 +25,67 @@
     </v-form>
 </template>
 <script>
-import LessonDataService from "../services/LessonDataService";
+import ArtistDataService from "../services/ArtistDataService";
+import TutorialDataService from "../services/TutorialDataService";
 export default {
-  name: "add-lesson",
-  props: {tutorialId : String,lessonId:String},
+  name: "add-artist",
+  props: {tutorialId : String},
   data() {
     return {
-      lesson: {
-        id: null,
-        title: "",
-        description: "",
-        published: false
+      artist: {
+        id:null,
+        name:""
       },
-      message: "Enter data and click save"
+      message: "Enter data and click save",
+      selectedFile:null
     };
   },
   methods: {
-    saveTrack() {
-      var data = {
-        title: this.lesson.title,
-        description: this.lesson.description,
-        tutorialId : this.tutorialId
-      };
-      LessonDataService.createLesson(this.tutorialId, data)
+     onPickFile () {
+  this.$refs.fileInput.click()
+},
+onFilePicked (event) {
+  const files = event.target.files
+  let filename = files[0].name
+  const fileReader = new FileReader()
+  fileReader.addEventListener('load', () => {
+    this.imageUrl = fileReader.result
+  })
+  fileReader.readAsDataURL(files[0])
+  this.selectedFile = files[0]
+},
+    addArtist(albumid) {
+      let formData = new FormData();
+      formData.append("artistimage", this.selectedFile);
+      formData.append("name",this.artist.name);
+      
+      ArtistDataService.createArtist(formData)
         .then(response => {
-          this.lesson.id = response.data.id;
-        
-          this.$router.push({ name: 'view' , params: { id: this.tutorialId }} );
+          this.artist.id = response.data.id;
+          console.log(this.artist.id)
+           var data = {
+        artistId: this.artist.id
+      };
+      TutorialDataService.update(albumid,data)
+        .then(response => {
+          
+          console.log("add "+response.data);
+          this.$router.push({ name: 'albums' });
+        })
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
+       
+
     },
     cancel(){
-        this.$router.push({ name: 'view' , params: { id: this.tutorialId }} );
+        
+        this.$router.push({ name: 'albums' });
     }
+    
   }
+    
 }
 
 </script>
