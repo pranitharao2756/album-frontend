@@ -11,12 +11,12 @@
             v-model="album.description"
         />
         <button class="btn btn-info" @click="onPickFile">Upload album image</button>
-        <input type="file" style="display: none" ref="fileInput" accept="image/*" @change="onFilePicked"/>
+        <input type="file" ref="fileInput" accept="image/*" @change="onFilePicked"/>
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveTutorial()"
-                    >Save</v-btn
+                <v-btn color="success" @click="AddAlbum($route.params.id)"
+                    >Add album</v-btn
                 >
             </v-col>
             <v-col col="2">
@@ -27,9 +27,9 @@
     </v-form>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import AlbumDataService from "../services/AlbumDataService";
 export default {
-  name: "add-tutorial",
+  name: "add-album",
   data() {
     return {
       album: {
@@ -57,24 +57,25 @@ onFilePicked (event) {
   this.selectedFile = files[0]
   
 },
-    saveTutorial() {
+    AddAlbum(artistid) {
       let formData = new FormData();
       formData.append("image", this.selectedFile);
       formData.append("title",this.album.title);
       formData.append("description",this.album.description);
       
-      TutorialDataService.create(formData)
+      
+      AlbumDataService.create(artistid,formData)
         .then(response => {
           this.album.id = response.data.id;
           console.log("add "+response.data);
-          this.$router.push({ name: 'albums' });
+          this.$router.push({ name: 'view' , params: { id: artistid }});
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     cancel(){
-        this.$router.push({ name: 'albums' });
+        this.$router.push({ name: 'artists' });
     }
   }
 }
