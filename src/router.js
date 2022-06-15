@@ -13,6 +13,11 @@ const routes =  [
     props: true
   },
   {
+    path: "/editAlbum/:artistid/:albumid",
+    name: "editAlbum",
+    component: () => import("./views/EditAlbum.vue")
+  },
+  {
     path: "/add/:id",
     name: "add",
     component: () => import("./views/AddAlbum.vue")
@@ -24,18 +29,17 @@ const routes =  [
     props: true
   },
   {
-    path: "/viewalbum/:id",
-    name: "viewalbum",
-    component: () => import("./views/ViewAlbum.vue"),
-    props: true
-  },
-  {
     path: "/view/:id",
     name: "viewargs",
     component: () => import("./views/ViewArtist.vue"),
     props: true
   },
-
+  {
+    path: "/viewalbum/:id",
+    name: "viewalbum",
+    component: () => import("./views/ViewAlbum.vue"),
+    props: true
+  },
   {
     path: "/addTrack/:id",
     name: "addTrack",
@@ -60,5 +64,4 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
 export default router;

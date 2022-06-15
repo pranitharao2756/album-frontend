@@ -1,7 +1,7 @@
 <template>
-    <h4>{{ message }}</h4>
-    <h3> Album: {{album.title}}</h3><br> 
     
+    <h4>{{ message }}</h4>
+    <h3> Album: {{album.title}}</h3><br>    
 
      <v-row>
         <v-col  cols="8"
@@ -12,12 +12,10 @@
               sm="4">
             <span class="text-h6">Description</span>
         </v-col>
-
         <v-col  cols="8"
-        sm="4">
+              sm="4">
             <span class="text-h6">Length</span>
         </v-col>
-
         <v-col  cols="8"
               sm="1">
             <span class="text-h6">Edit</span>
@@ -29,18 +27,17 @@
       </v-row>
       <TrackDisplay
         v-for="track in tracks"
-        :key="lesson.id"
+        :key="track.id"
         :track="track"
         @deleteTrack="goDeleteTrack(track)"
         @updateTrack="goEditTrack(track)"
     />
-     <v-btn color="success" @click="goEditAlbum()"
+    <v-btn color="success" @click="goEditAlbum()"
     >Edit</v-btn>&nbsp;
      <v-btn color="success" @click="goAddTrack(id)"
     >Add Track</v-btn>&nbsp;
     <v-btn color="success" @click="goAlbum()"
     >Back</v-btn>
-
 
    
 </template>
@@ -48,7 +45,6 @@
 import AlbumDataService from "../services/AlbumDataService";
 import TrackDataService from "../services/TrackDataService";
 import TrackDisplay from '@/components/TrackDisplay.vue';
-import ArtistDataService from "../services/ArtistDataService";
 export default {
   name: "view-album",
   props: ['id'],
@@ -65,7 +61,7 @@ export default {
   },
   methods: {
     retrieveTracks() {
-      AlbumDataService.get(this.id)
+      AlbumDataService.getAlbum(this.id)
         .then(response => {
           this.album= response.data;
           this.artistid = this.album.artistId;
@@ -83,6 +79,10 @@ export default {
      goEditAlbum() {
       this.$router.push({ name: 'edit', params: { id: this.id } });
     },
+    goAlbum()
+    {
+       this.$router.push({ name: 'viewargs', params: { id: this.artistid } });
+    },
     goEditTrack(track) {
       this.$router.push({ name: 'editTrack', params: { albumid: this.id,trackid: track.id} });
     },
@@ -91,6 +91,7 @@ export default {
     },
 
     goDeleteTrack(track) {
+      
       TrackDataService.deleteTrack(track.albumId,track.id)
         .then( () => {
           this.retrieveTracks()
@@ -99,7 +100,7 @@ export default {
           this.message = e.response.data.message;
         });
     }
- 
+    
   },
     mounted() {
     this.retrieveTracks();

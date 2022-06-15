@@ -43,20 +43,14 @@ export default {
 
   data: () => ({
     logo,
-    
   }),
   methods: {
     goList() {
-      
       this.$router.push({ name: 'artists' });
     },
-
     goAdd() {
-      
       this.$router.push({ name: 'addArtist' });
     },
-   
-    
   },
 
 }
